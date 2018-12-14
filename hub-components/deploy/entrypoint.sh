@@ -88,6 +88,7 @@ do_database_migrate() {
 
 EOF
 )
+	kubectl delete pod migrate-database -n "$namespace" || true
 	kubectl run -it --rm --image="$tke_docker_image" --restart=Never --command=true --pod-running-timeout=2m migrate-database -n "$namespace" --overrides="$yaml"
 }
 
